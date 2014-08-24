@@ -1,0 +1,1 @@
+print(sum(1 for P2 in range(0, 200 + 1, 200) for P1 in range(0, 200 - P2 + 1, 100) for p50 in range(0, 200 - P1 - P2 + 1, 50) for p20 in range(0, 200 - p50 - P1 - P2 + 1, 20) for p10 in range(0, 200 - p20 - p50 - P1 - P2 + 1, 10) for p5 in range(0, 200 - p10 - p20 - p50 - P1 - P2 + 1, 5) for p2 in range(0, 200 - p5 - p10 - p20 - p50 - P1 - P2 + 1, 2)))
