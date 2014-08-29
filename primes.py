@@ -21,18 +21,21 @@ def isprime(n):
 
 def primes(precomp = 100): # generator
     # precompute a few primes
-    oldp = sieve(precomp)
+    oldp = list(sieve(precomp))
     n = 0
     for p in oldp:
         yield p
         n = p
     while True:
-        n += 1
+        n += 2
+        valid = True
         for p in oldp:
             if p * p > n:
                 break
             if n % p == 0:
-                continue
+                valid = False
+                break
+        if not valid: continue
         yield n
         oldp.append(n)
 

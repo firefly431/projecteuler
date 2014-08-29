@@ -55,3 +55,38 @@ def fib(a = 0, b = 1):
 def nth(seq, n, default = None):
     import itertools
     return next(itertools.islice(seq, n, None), default)
+
+def square(x):
+    import math
+    s = int(math.sqrt(x))
+    return s * s == x
+
+def pent(x):
+    import math
+    a = 24 * x + 1
+    sa = int(math.sqrt(a))
+    return sa * sa == a and sa % 6 == 5
+
+def pfactor(n): # prime factorization
+    # do 2 first
+    exp = 0
+    while n & 1 == 0:
+        n = n >> 1
+        exp += 1
+    if exp > 0:
+        yield (2, exp)
+    # find factors, similar to #3
+    # very similar to #12
+    fac = 3
+    maxf = math.sqrt(n)
+    while n > 1 and fac <= maxf:
+        exp = 0
+        while n % fac == 0:
+            n = n // fac
+            exp += 1
+        if exp > 0:
+            maxf = math.sqrt(n)
+            yield (fac, exp)
+        fac += 2
+    if n > 1:
+        yield (n, 1)
