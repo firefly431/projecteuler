@@ -19,9 +19,9 @@ def isprime(n):
             return False
     return True
 
-def primes(precomp = 100): # generator
+def primes(precomp = 100, already = None): # generator
     # precompute a few primes
-    oldp = list(sieve(precomp))
+    oldp = list(sieve(precomp)) if not already else already
     n = 0
     for p in oldp:
         yield p
@@ -38,6 +38,17 @@ def primes(precomp = 100): # generator
         if not valid: continue
         yield n
         oldp.append(n)
+
+__isprime = isprime
+__primes = primes
+
+def precomp(n): # returns list
+    global isprime, primes
+    plist = list(sieve(n))
+    pset = set(sieve(n))
+    isprime = lambda x: __isprime(x) if x > n else x in pset
+    primes = lambda: __primes(0, plist)
+    return plist
 
 if __name__ == "__main__":
     import sys
