@@ -1,0 +1,33 @@
+"""
+Load enable1 from a file into words
+
+Requires that enable1 or enable1.txt
+exists in the home directory or downloads folder
+"""
+
+import platform
+import os.path
+import itertools
+
+dirs = ['~', '~/Downloads', '~/downloads']
+fnames = ['enable1', 'enable1.txt']
+
+edirs = map(os.path.expanduser, dirs)
+
+# at school, sets home to N:\ which is really stupid
+if platform.system() == 'Windows':
+    import getpass
+    uname = getpass.getuser()
+    if uname == 's506571':
+        edirs = (x.replace('~', 'C:\\Users\\s506571') for x in dirs)
+
+for path in map(os.path.normcase, itertools.starmap(os.path.join, itertools.product(edirs, fnames))):
+    if os.path.exists(path):
+        break
+
+with open(path) as file:
+    words = list(map(str.strip, file.readlines()))
+
+wset = set(words)
+
+isword = wset.__contains__
